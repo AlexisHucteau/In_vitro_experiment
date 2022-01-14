@@ -1,0 +1,233 @@
+---
+title: "Facs analysis"
+author: Alexis Hucteau
+date: "`r Sys.Date()`"
+output:
+    html_document:
+      toc: yes
+      toc_float: yes
+      theme: united
+editor_options:
+  markdown:
+    wrap: sentence
+---
+
+Back to [PhD Project](https://alexishucteau.github.io/PhD_project/)
+
+```{r, include=F}
+library(ggplot2)
+library(dplyr)
+
+Diff_facs_analysis <- read.csv("Data/Replicat 1/Diff_AGI.csv")
+Rhod2_facs_analysis <- read.csv("Data/Replicat 1/Rhod2_AGI.csv")
+PpIX_facs_analysis <- read.csv("Data/Replicat 1/PpIX_AGI_ALA_Basal.csv")
+Scenith_analysis <- read.csv("Data/Replicat 1/Scenith.csv")
+```
+
+# Summary
+
+* [23.11.2021](#replicat-1)
+  * [Rhod2](#rhod2)
+  * [PpIX](#ppix)
+  * [PPIX flux](#ppix-flux)
+  * [Scenith](#scenith)
+    * [Glycolyse dependency](#glycolyse)
+    * [Mitochondria dependency](#mito)
+  * [Differenciation](#diff)
+    * [CD11b](#cd11b)
+    * [CD14](#cd14)
+    * [CD15](#cd15)
+* [14.01.2022](#replicat-2)
+  * [Rhod2](#rhod2-2)
+  * [PpIX](#ppix-2)
+  * [PPIX flux](#ppix-flux-2)
+  * [Scenith](#scenith-2)
+    * [Glycolyse dependency](#glycolyse-2)
+    * [Mitochondria dependency](#mito-2)
+  * [Differenciation](#diff-2)
+    * [CD11b](#cd11b-2)
+    * [CD14](#cd14-2)
+    * [CD15](#cd15-2)
+
+# First replicat {#replicat-1}
+
+# Rhod2, calcium indicator {#rhod2}
+
+```{r}
+ggplot(data=Rhod2_facs_analysis, aes(x = Cell.line, y = Rhod2, color = factor(Treatment, levels = c("DMSO", "AGI")))) +
+  scale_color_manual(values=c("#0000FF", "#FF0000"), limits=c("DMSO", "AGI")) +
+  geom_bar(stat = "identity", fill = "white", position = position_dodge()) + 
+  labs(color = "Treatment", title = "Calcium indicator", x = "Cell lines")+
+  theme_minimal()
+```
+
+# PpIX {#ppix}
+
+```{r}
+ggplot(data=PpIX_facs_analysis, aes(x = Cell.line, y = MFI_PpIX, color = factor(Treatment, levels = c("DMSO", "AGI")))) + 
+  scale_color_manual(values=c("#0000FF", "#FF0000"), limits=c("DMSO", "AGI")) +
+  geom_bar(stat = "identity", fill = "white", position = position_dodge()) + 
+  labs(color = "Treatment", title = "PpIX indicator", x = "Cell lines")+
+  theme_minimal()
+```
+
+# PpIX flux (ALA/basal) {#ppix-flux}
+
+```{r}
+ggplot(data=PpIX_facs_analysis, aes(x = Cell.line, y = ALA.basal, color = factor(Treatment, levels = c("DMSO", "AGI")))) + 
+  scale_color_manual(values=c("#0000FF", "#FF0000"), limits=c("DMSO", "AGI")) +
+  geom_bar(stat = "identity", fill = "white", position = position_dodge()) + 
+  labs(color = "Treatment", title = "PpIX ALA/basal", x = "Cell lines")+
+  theme_minimal()
+```
+
+# Scenith {#scenith}
+
+PDF files:
+
+* [M14 + DMSO](https://alexishucteau.github.io/PhD_project/Analysis/Wetlab/Data/Scenith_M14R132_DMSO.pdf)
+* [M14 + AGI](https://alexishucteau.github.io/PhD_project/Analysis/Wetlab/Data/Scenith_M14R132_AGI.pdf)
+
+## Glycolyse dependency {#glycolyse}
+
+```{r}
+ggplot(data=Scenith_analysis, aes(x=factor(Treatment, levels = c("DMSO", "AGI")), y=Gly_dependency, color=factor(Treatment, levels = c("DMSO", "AGI"))))+
+  scale_color_manual(values=c("#0000FF", "#FF0000"), limits=c("DMSO", "AGI")) +
+  geom_bar(stat = "identity", fill = "white", position = position_dodge()) + 
+  labs(color = "Treatment", title = "Glycolyse dependency", x = "Treatment")+
+  theme_minimal()
+```
+
+## Mitochondria dependency {#mito}
+
+```{r}
+ggplot(data=Scenith_analysis, aes(x=factor(Treatment, levels = c("DMSO", "AGI")), y=Mito_dependency, color=factor(Treatment, levels = c("DMSO", "AGI"))))+
+  scale_color_manual(values=c("#0000FF", "#FF0000"), limits=c("DMSO", "AGI")) +
+  geom_bar(stat = "identity", fill = "white", position = position_dodge()) + 
+  labs(color = "Treatment", title = "Mitochondria dependency", x = "Treatment")+
+  theme_minimal()
+```
+
+# Differenciation markers {#diff}
+
+## CD11b {#cd11b}
+
+```{r}
+ggplot(data=Diff_facs_analysis[c(1:4),], aes(x=Cell.line, y=CD11b_PE_A, color=factor(Treatment, levels = c("DMSO", "AGI"))))+
+  scale_color_manual(values=c("#0000FF", "#FF0000"), limits=c("DMSO", "AGI")) +
+  geom_bar(stat = "identity", fill = "white", position = position_dodge()) + 
+  labs(color = "Treatment", title = "CD11b", x = "Cell lines")+
+  theme_minimal()
+```
+
+## CD14 {#cd14}
+
+```{r}
+ggplot(data=Diff_facs_analysis[c(1:4),], aes(x=Cell.line, y=CD14.APC__A700_A, color=factor(Treatment, levels = c("DMSO", "AGI"))))+
+  scale_color_manual(values=c("#0000FF", "#FF0000"), limits=c("DMSO", "AGI")) +
+  geom_bar(stat = "identity", fill = "white", position = position_dodge()) + 
+  labs(color = "Treatment", title = "CD14", x = "Cell lines")+
+  theme_minimal()
+```
+
+## CD15 {#cd15}
+
+```{r}
+ggplot(data=Diff_facs_analysis[c(1:4),], aes(x=Cell.line, y=CD15_APC_A, color=factor(Treatment, levels = c("DMSO", "AGI"))))+
+  scale_color_manual(values=c("#0000FF", "#FF0000"), limits=c("DMSO", "AGI")) +
+  geom_bar(stat = "identity", fill = "white", position = position_dodge()) + 
+  labs(color = "Treatment", title = "CD15", x = "Cell lines")+
+  theme_minimal()
+```
+
+
+
+# Replicat 2 {#replicat-2}
+
+```{r}
+Replicat2 <- read.csv("Data/Replicat 2/2021 12 14 - Rhod2 - M14R132, 56-11 AGI J+7.csv", nrows = 10, check.names = F, row.names = 1)[,-6]
+```
+
+# Rhod2, calcium indicator {#rhod2-2}
+
+```{r}
+Rhod2_df <- data.frame("Rhod2" = Replicat2$`Median Rhod2`[c(1:4)],
+                       "Cell.line" = c(rep("56-11",2), rep("M14",2)),
+                       "Treatment" = rep(c("AGI", "DMSO"), 2)
+) %>% t() %>% data.frame() %>% rev() %>% t() %>% data.frame() 
+
+Rhod2_df
+
+Rhod2_df_final <- data.frame("Rhod2" = (as.numeric(Rhod2_df$Rhod2) + Rhod2_facs_analysis$Rhod2)/2,
+                             "Cell.line" = c("M14", "M14", "56-11", "56-11"),
+                              "Treatment" = rep(c("DMSO", "AGI"), 2)
+)
+
+Rhod2_all_data <- data.frame("Rhod2" = as.numeric(c(Replicat2$`Median Rhod2`[c(1:4)], Rhod2_facs_analysis$Rhod2)),
+                             "Cell.line" = c(rep("56-11",2), rep("M14",4), rep("56-11",2)),
+                              "Treatment" = c(rep(c("AGI", "DMSO"), 2), rep(c("DMSO", "AGI"), 2))
+)
+
+ggplot(data=Rhod2_df_final, aes(x = Cell.line, y = Rhod2, color = factor(Treatment, levels = c("DMSO", "AGI")))) +
+  geom_bar(stat = "identity", fill = "white", position = position_dodge()) + 
+  geom_jitter(data = Rhod2_all_data, 
+              inherit.aes = F, 
+              mapping = aes(x = Cell.line, 
+                            y = Rhod2, 
+                            color = factor(Treatment, levels = c("DMSO", "AGI"))),
+              width = 0.25) + 
+  scale_color_manual(values=c("#0000FF", "#FF0000"), limits=c("DMSO", "AGI")) +
+  labs(color = "Treatment", title = "Calcium indicator", x = "Cell lines")+
+  theme_minimal()
+
+```
+
+# CD38
+
+```{r}
+CD38_df <- data.frame("CD38" = Replicat2[c(1:4),"Median CD38"],
+                      "Cell.line" = c(rep("56-11", 2), rep("M14", 2)),
+                      "Treatment" = rep(c("AGI", "DMSO"), 2)
+                      )
+
+ggplot(data=CD38_df[c(1:4),], aes(x=Cell.line, y=CD38, color=factor(Treatment, levels = c("DMSO", "AGI"))))+
+  scale_color_manual(values=c("#0000FF", "#FF0000"), limits=c("DMSO", "AGI")) +
+  geom_bar(stat = "identity", fill = "white", position = position_dodge()) + 
+  labs(color = "Treatment", title = "CD38", x = "Cell lines")+
+  theme_minimal()
+```
+
+# CD15
+
+```{r}
+CD15_df <- data.frame("CD15" = Replicat2[c(1:4),"Median CD15"],
+                      "Cell.line" = c(rep("56-11", 2), rep("M14", 2)),
+                      "Treatment" = rep(c("AGI", "DMSO"), 2)
+                      )
+
+ggplot(data=CD15_df[c(1:4),], aes(x=Cell.line, y=CD15, color=factor(Treatment, levels = c("DMSO", "AGI"))))+
+  scale_color_manual(values=c("#0000FF", "#FF0000"), limits=c("DMSO", "AGI")) +
+  geom_bar(stat = "identity", fill = "white", position = position_dodge()) + 
+  labs(color = "Treatment", title = "CD15", x = "Cell lines")+
+  theme_minimal()
+```
+
+# Scenith
+
+```{r}
+Scenith_MOLM14 <- data.frame("Cell.line" = c(rep("M14", 2), rep("56-11",2)),
+                             "Mitochondrial_dependancy" = c(62.9, 16.0, 46.7, 40.8),
+                             "Mitochondrial_signal" = c(199824.95, 251765.25, 557897, 450958.25),
+                             "Treatment" = rep(c("DMSO", "AGI"), 2)
+)
+```
+
+
+```{r}
+ggplot(data=Scenith_MOLM14, aes(x=Cell.line, y=Mitochondrial_dependancy, color=factor(Treatment, levels = c("DMSO", "AGI"))))+
+  scale_color_manual(values=c("#0000FF", "#FF0000"), limits=c("DMSO", "AGI")) +
+  geom_bar(stat = "identity", fill = "white", position = position_dodge()) + 
+  labs(color = "Treatment", title = "Mitochondrial dependancy", x = "Cell lines")+
+  theme_minimal()
+```
+

@@ -1,0 +1,13 @@
+,% viable,MFI GFP,Median Rhod2,Median CD38,Median CD15
+56-11 AGI,96.9,2974,32766,3495,16431
+56-11 DMSO,96.9,3009,35470,3642,15723
+M14R132 AGI,96.2,864,18479,24355,5641
+M14R132 DMSO,92.8,770,14228,6808,5724
+Non marque.fcs,99.6,1221,1948,632,100
+comp AnnexinV.fcs,28.7,607,1070,261,101
+comp CD15APC.fcs,0,n/a,n/a,n/a,n/a
+comp CD38PC7.fcs,100,222,145,100,396
+comp GFP.fcs,99.3,3695,2675,940,190
+comp Rhod2.fcs,0,n/a,n/a,n/a,n/a
+Mean,71.0,,,,
+SD,43.2,,,,
