@@ -26,32 +26,23 @@ Scenith_analysis <- read.csv("Data/Replicat 1/Scenith.csv")
 
 # Summary
 
-* [23.11.2021](#replicat-1)
-  * [Rhod2](#rhod2)
-  * [PpIX](#ppix)
-  * [PPIX flux](#ppix-flux)
-  * [Scenith](#scenith)
-    * [Glycolyse dependency](#glycolyse)
-    * [Mitochondria dependency](#mito)
-  * [Differenciation](#diff)
-    * [CD11b](#cd11b)
-    * [CD14](#cd14)
-    * [CD15](#cd15)
-* [14.01.2022](#replicat-2)
-  * [Rhod2](#rhod2-2)
-  * [PpIX](#ppix-2)
-  * [PPIX flux](#ppix-flux-2)
-  * [Scenith](#scenith-2)
-    * [Glycolyse dependency](#glycolyse-2)
-    * [Mitochondria dependency](#mito-2)
-  * [Differenciation](#diff-2)
-    * [CD11b](#cd11b-2)
-    * [CD14](#cd14-2)
-    * [CD15](#cd15-2)
+* [Rhod2](#rhod2)
+* [PpIX](#ppix)
+* [PPIX flux](#ppix-flux)
+* [Scenith](#scenith)
+  * [Glycolyse dependency](#glycolyse)
+  * [Mitochondria dependency](#mito)
+* [Differenciation](#diff)
+  * [CD11b](#cd11b)
+  * [CD14](#cd14)
+  * [CD15](#cd15)
+
 
 # First replicat {#replicat-1}
 
 # Rhod2, calcium indicator {#rhod2}
+
+## Replicat 1
 
 ```{r}
 ggplot(data=Rhod2_facs_analysis, aes(x = Cell.line, y = Rhod2, color = factor(Treatment, levels = c("DMSO", "AGI")))) +
@@ -60,6 +51,17 @@ ggplot(data=Rhod2_facs_analysis, aes(x = Cell.line, y = Rhod2, color = factor(Tr
   labs(color = "Treatment", title = "Calcium indicator", x = "Cell lines")+
   theme_minimal()
 ```
+
+## Replica 2
+
+```{r}
+ggplot(data=Rhod2_df, aes(x = Cell.line, y = as.numeric(Rhod2), color = factor(Treatment, levels = c("DMSO", "AGI")))) +
+  scale_color_manual(values=c("#0000FF", "#FF0000"), limits=c("DMSO", "AGI")) +
+  geom_bar(stat = "identity", fill = "white", position = position_dodge()) + 
+  labs(color = "Treatment", title = "Calcium indicator", x = "Cell lines")+
+  theme_minimal()
+```
+
 
 # PpIX {#ppix}
 
@@ -107,6 +109,8 @@ ggplot(data=Scenith_analysis, aes(x=factor(Treatment, levels = c("DMSO", "AGI"))
   labs(color = "Treatment", title = "Mitochondria dependency", x = "Treatment")+
   theme_minimal()
 ```
+
+### 
 
 # Differenciation markers {#diff}
 
