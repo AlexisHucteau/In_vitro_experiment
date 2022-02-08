@@ -87,6 +87,21 @@ ggplot(data=Rhod2_df, aes(x = Cell.line, y = as.numeric(Rhod2), color = factor(T
   theme_minimal()
 ```
 
+## Replicat 3
+
+```{r, echo=F}
+Rhod2_rep3 <- data.frame("Rhod2" = c(4084,3896, 1737, 2140),
+                        "Cell.line" = c("56-11", "56-11", "Molm14", "Molm14"),
+                        "Treatment" = c("DMSO", "AGI", "DMSO", "AGI"))
+
+ggplot(data=Rhod2_rep3, aes(x=Cell.line, y=Rhod2, color=factor(Treatment, levels = c("DMSO", "AGI"))))+
+  scale_color_manual(values=c("#0000FF", "#FF0000"), limits=c("DMSO", "AGI")) +
+  geom_bar(stat = "identity", fill = "white", position = position_dodge()) + 
+  labs(color = "Treatment", title = "Calcium indicator", x = "Cell lines")+
+  theme_minimal()
+```
+
+
 
 # PpIX {#ppix}
 
@@ -191,7 +206,25 @@ ggplot(data=CD15_df, aes(x=Cell.line, y=as.numeric(CD15), color=factor(Treatment
   theme_minimal()
 ```
 
+### Replicat 3
+
+```{r, echo=F}
+CD15_rep3 <- data.frame("CD15" = c(4986,3977,1504,1558),
+                        "Cell.line" = c("56-11", "56-11", "Molm14", "Molm14"),
+                        "Treatment" = c("DMSO", "AGI", "DMSO", "AGI"))
+
+ggplot(data=CD15_rep3, aes(x=Cell.line, y=as.numeric(CD15), color=factor(Treatment, levels = c("DMSO", "AGI"))))+
+  scale_color_manual(values=c("#0000FF", "#FF0000"), limits=c("DMSO", "AGI")) +
+  geom_bar(stat = "identity", fill = "white", position = position_dodge()) + 
+  labs(color = "Treatment", title = "CD15", x = "Cell lines")+
+  theme_minimal()
+```
+
+
+
 # CD38
+
+## Replicat 1
 
 ```{r, echo=F}
 CD38_df <- data.frame("CD38" = Replicat2[c(1:4),"Median CD38"],
@@ -206,5 +239,17 @@ ggplot(data=CD38_df[c(1:4),], aes(x=Cell.line, y=as.numeric(CD38), color=factor(
   theme_minimal()
 ```
 
+## Replicat 2
 
+```{r, echo=F}
+CD38_rep2 <- data.frame("CD38" = c(887, 853, 6233,7747),
+                        "Cell.line" = c("56-11", "56-11", "Molm14", "Molm14"),
+                        "Treatment" = c("DMSO", "AGI", "DMSO", "AGI"))
+
+ggplot(data=CD38_rep2, aes(x=Cell.line, y=as.numeric(CD38), color=factor(Treatment, levels = c("DMSO", "AGI"))))+
+  scale_color_manual(values=c("#0000FF", "#FF0000"), limits=c("DMSO", "AGI")) +
+  geom_bar(stat = "identity", fill = "white", position = position_dodge()) + 
+  labs(color = "Treatment", title = "CD38", x = "Cell lines")+
+  theme_minimal()
+```
 
