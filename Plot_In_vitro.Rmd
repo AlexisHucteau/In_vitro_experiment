@@ -48,12 +48,24 @@ Scenith_replicat_2 <- data.frame("Cell.line" = c(rep("M14", 2), rep("56-11",2)),
                              "Treatment" = rep(c("DMSO", "AGI"), 2)
                              )
 
+Replicat4 <- data.frame("Cell.line" = c(rep(c("Molm14", "56-11"), each = 2)),
+                        "Treatment" = rep(c("Control", "IDHi"), 2),
+                        "CD15" = c(1131, 997, 4382, 4785),
+                        "CD38" = c(2479, 6438, 1452, 1334),
+                        "Rhod2" = c(5965, 5641, 11756, 10002),
+                        "GFP" = c(1322, 1469, 2598, 2747))
+
+Replicat5 <- data.frame("Cell.line" = c(rep(c("56-11", "56-5"), each = 2), "55-4", "55-2"),
+                        "Treatment" = c(rep(c("Control", "IDHi"), 2), "IDHwt", "IDHwt"),
+                        "CD15" = c(3247, 2583, 6572, 7031, 6000, 10300),
+                        "CD38" = c(677, 651, 503, 477, 591, 834))
+
 ```
 
 ```{r, include=F, echo=F}
-Rhod2_total_df <- data.frame(Rhod2 = as.numeric(c(Rhod2_facs_analysis_replicat_1$Rhod2, as.numeric(Replicat2$`Median Rhod2`[c(1:4)]), 4084,3896, 1737, 2140)),
-                             Cell_line = c(rep("Molm14" ,2), rep("HL60", 4), rep("Molm14", 2), rep("HL60", 2), rep("Molm14", 2)), 
-                             Treatment = c(rep(c("Control", "IDHi"), 2), rep(c("IDHi", "Control"), 2), rep(c("Control", "IDHi"), 2))
+Rhod2_total_df <- data.frame(Rhod2 = as.numeric(c(Rhod2_facs_analysis_replicat_1$Rhod2, as.numeric(Replicat2$`Median Rhod2`[c(1:4)]), 4084,3896, 1737, 2140, Replicat4$Rhod2)),
+                             Cell_line = c(rep("Molm14" ,2), rep("56-11", 4), rep("Molm14", 2), rep("56-11", 2), rep("Molm14", 2), Replicat4$Cell.line), 
+                             Treatment = c(rep(c("Control", "IDHi"), 2), rep(c("IDHi", "Control"), 2), rep(c("Control", "IDHi"), 2), Replicat4$Treatment)
 )
 
 Scenith_total_df <- data.frame(Mito_dep = c(Scenith_analysis_replicat_1$Mito_dependency, Scenith_replicat_2$Mitochondrial_dependancy),
@@ -63,17 +75,17 @@ Scenith_total_df <- data.frame(Mito_dep = c(Scenith_analysis_replicat_1$Mito_dep
 )
 
 Diff_facs_analysis_replicat_1 <- Diff_facs_analysis_replicat_1[c(1:4),]
-Diff_facs_analysis_replicat_1$Cell.line <- c(rep("Molm14", 2), rep("HL60", 2))
+Diff_facs_analysis_replicat_1$Cell.line <- c(rep("Molm14", 2), rep("56-11", 2))
 Diff_facs_analysis_replicat_1$Treatment <- rep(c("Control", "IDHi"),2)
 
-cd15 <- data.frame(cd15 = as.numeric(c(Diff_facs_analysis_replicat_1$CD15_APC_A, CD15_df$CD15, 4986,3977,1504,1558)), 
-                   Cell_line = c(Diff_facs_analysis_replicat_1$Cell.line, rep(c(rep("HL60", 2), rep("Molm14", 2)), 2)),
-                   Treatment = c(Diff_facs_analysis_replicat_1$Treatment, rep(c("IDHi", "Control"), 2), rep(c("Control", "IDHi"), 2))
+cd15 <- data.frame(cd15 = as.numeric(c(Diff_facs_analysis_replicat_1$CD15_APC_A, CD15_df$CD15, 4986,3977,1504,1558, Replicat4$CD15, Replicat5$CD15)), 
+                   Cell_line = c(Diff_facs_analysis_replicat_1$Cell.line, rep(c(rep("56-11", 2), rep("Molm14", 2)), 2), Replicat4$Cell.line, Replicat5$Cell.line),
+                   Treatment = c(Diff_facs_analysis_replicat_1$Treatment, rep(c("IDHi", "Control"), 2), rep(c("Control", "IDHi"), 2), Replicat4$Treatment, Replicat5$Treatment)
 )
 
-cd38 <- data.frame(cd38 = as.numeric(c(Replicat2[c(1:4),4], 887, 853, 6233,7747)), 
-                   Cell_line = rep(c(rep("HL60", 2), rep("Molm14", 2)), 2),
-                   Treatment = c(rep(c("IDHi", "Control"),2), rep(c("Control", "IDHi"),2))
+cd38 <- data.frame(cd38 = as.numeric(c(Replicat2[c(1:4),4], 887, 853, 6233,7747, Replicat4$CD38, Replicat5$CD38)), 
+                   Cell_line = c(rep(c(rep("56-11", 2), rep("Molm14", 2)), 2), Replicat4$Cell.line, Replicat5$Cell.line),
+                   Treatment = c(rep(c("IDHi", "Control"),2), rep(c("Control", "IDHi"),2), Replicat4$Treatment, Replicat5$Treatment)
 )
 
 ```
@@ -127,8 +139,8 @@ ggplot(data=Diff_facs_analysis_replicat_1, aes(x = Cell.line, y = CD11b_PE_A, co
 
 ## CD15 {#cd15}
 ```{r}
-ggplot(data=cd15, aes(x = Cell_line, y = cd15, color = factor(Treatment, levels = c("Control", "IDHi")))) +
-  scale_color_manual(values=c("#0000FF", "#FF0000"), limits=c("Control", "IDHi")) +
+ggplot(data=cd15, aes(x = Cell_line, y = cd15, color = factor(Treatment, levels = c("Control", "IDHi", "IDHwt")))) +
+  scale_color_manual(values=c("#0000FF", "#FF0000", "#00FF00"), limits=c("Control", "IDHi", "IDHwt")) +
   geom_boxplot(width = 0.3) + 
   geom_jitter(position = position_jitterdodge(dodge.width = 0.5)) +
   labs(color = "Treatment", title = "CD15", x = "Cell lines", y = "")+
@@ -148,8 +160,8 @@ ggplot(data=Diff_facs_analysis_replicat_1, aes(x = Cell.line, y = CD14.APC__A700
 ## CD38 {#cd38}
 
 ```{r}
-ggplot(data=cd38, aes(x = Cell_line, y = cd38, color = factor(Treatment, levels = c("Control", "IDHi")))) +
-  scale_color_manual(values=c("#0000FF", "#FF0000"), limits=c("Control", "IDHi")) +
+ggplot(data=cd38, aes(x = Cell_line, y = cd38, color = factor(Treatment, levels = c("Control", "IDHi", "IDHwt")))) +
+  scale_color_manual(values=c("#0000FF", "#FF0000", "#00FF00"), limits=c("Control", "IDHi", "IDHwt")) +
   geom_boxplot(width = 0.3) + 
   geom_jitter(position = position_jitterdodge(dodge.width = 0.5)) +
   labs(color = "Treatment", title = "CD38", x = "Cell lines", y = "")+
