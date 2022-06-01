@@ -253,3 +253,6 @@ ggplot(data=CD38_rep2, aes(x=Cell.line, y=as.numeric(CD38), color=factor(Treatme
   theme_minimal()
 ```
 
+# Protein quantification
+
+![](./Pictures/WB1-2.png)
